@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+	<title>ROCK PAPER SCISSORS</title>
+	</head>
+	<body>
+
+		<h1 align="center">ROCK PAPER SCISSORS <br>
+			<button onclick="game()" align="center">
+				BEGIN GAME
+			</button>
+		</h1>
+		<h3 align="center">
+			To play the game press the begin game button. To view the results press ctrl+shft+i or f12 and select console
+		</h3>
+
+		<script>
+			function computerPlay() {
+				let randNum = Math.floor(Math.random() * (3 - 1 + 1)) + 1;
+				let computerChoice;
+				switch (randNum) {
+					case 1:
+						computerChoice = "ROCK";
+						break;
+					case 2:
+						computerChoice = "PAPER";
+						break;
+					case 3:
+						computerChoice = "SCISSORS";
+						break;
+				}
+				return computerChoice;
+			}
+
+			function playRound(playerSelectionNotFormatted, computerChoice) {
+				let playerSelection = playerSelectionNotFormatted.toUpperCase();
+				if (playerSelectionNotFormatted != null) {
+					console.log(playerSelection.toUpperCase() + "  " + computerChoice);
+					let result = "";
+					let intResult;
+					if (
+						(playerSelection === "ROCK" && computerChoice === "SCISSORS") ||
+						(playerSelection === "PAPER" && computerChoice === "ROCK") ||
+						(playerSelection === "SCISSORS" && computerChoice === "PAPER")
+					) {
+						result = "You win! " + playerSelection + " beats " + computerChoice;
+						intResult = 1;
+					} else if (playerSelection === computerChoice) {
+						result = "Round draw!";
+						intResult = 2;
+					} else {
+						result =
+							"You lose! " + computerChoice + " beats " + playerSelection;
+						intResult = 3;
+					}
+					console.log(result);
+					return intResult;
+				} else {
+					console.log("Please Enter a Selection");
+				}
+			}
+
+			function game() {
+				let roundNumber = 5;
+				let playerScore = 0;
+				let computerScore = 0;
+				for (let i = 0; i < 5; i++) {
+					console.log("\nROUND " + (i + 1) + "\n");
+
+					let playerSelection = prompt("Type Rock, Paper or Scissors");
+					if (
+						playerSelection.toUpperCase() === "ROCK" ||
+						playerSelection.toUpperCase() === "SCISSORS" ||
+						playerSelection.toUpperCase() === "PAPER"
+					) {
+						let intResult = playRound(playerSelection, computerPlay());
+
+						switch (intResult) {
+							case 1:
+								playerScore += 1;
+								break;
+							case 2:
+								break;
+							case 3:
+								computerScore += 1;
+								break;
+						}
+					} else console.log("You must choose either ROCK PAPER or SCISSORS ");
+				}
+				console.log(
+					"\n\nThe Score at the end of the game is: " +
+						playerScore +
+						" " +
+						computerScore
+				);
+				if (playerScore > computerScore) {
+					console.log("You win!");
+				} else if (computerScore > playerScore) {
+					console.log("You lose!");
+				} else console.log("Draw Game!");
+			}
+
+		</script>
+	</body>
+</html>
